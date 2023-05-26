@@ -41,4 +41,32 @@ class AlbumRepository
     end
     return albums
   end 
+
+  def create(album)
+    sql = 'INSERT INTO albums (title, release_year, artist_id) VALUES($1, $2, $3);'
+    sql_params = [album.title, album.release_year, album.artist_id]
+
+    DatabaseConnection.exec_params(sql, sql_params)
+
+    return nil
+  end
+
+  def delete(id)
+    sql = 'DELETE FROM albums WHERE id = $1;'
+    sql_params = [id]
+
+    DatabaseConnection.exec_params(sql, sql_params)
+
+    return nil
+  end
+
+  def update(album)
+    sql = 'UPDATE artists SET name = $1, genre = $2 WHERE id = $3; '
+    sql_params = [artist.name, artist.genre, artist.id]
+
+    DatabaseConnection. exec_params (sql, sql_params)
+
+    return nil
+
+  end
 end

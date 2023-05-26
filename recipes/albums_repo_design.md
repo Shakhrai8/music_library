@@ -122,6 +122,28 @@ class AlbumRepository
     # returns an instance of Album object
   end
 
+  def create(artist)
+    # Executes the SQL query;
+    # INSERT INTO artists (name, genre) VALUES ($1, $2);
+
+    # Doesn't nned to return anything 
+  end
+
+  def delete(id)
+    # Executes the SQl;
+    # DELETE FROM artists WHERE id = $1;
+
+    # Returns nothing (only deletes the record)
+  end
+
+  def update(artist)
+    # Executes the SQL;
+    # UPDATE artists SET name = $1, genre = $2 WHERE id = $3;
+
+    # Returns nothing(only updates)
+  end
+
+
 end
 ```
 
@@ -155,6 +177,54 @@ albums.length # => 1
 albums.first.title # => 'Surfer Rosa'
 albums.first.release_year # => '2001'
 albums.first.artist_id # => '1'
+
+# 1
+# create new album
+
+repo = AlbumRepository.new
+
+album = Album.new
+album.title = 'Title_23'
+album.release_year = '2002'
+album.artist_id = '1'
+
+repo.create(album)
+
+albums = repo.all
+last_album = albums.last
+last_album.title = 'Title_23'
+last_album.release_year = "2002"
+last_album.artist_id = '1'
+
+
+# 2
+# delete
+
+repo = AlbumRepository.new
+
+id_to_delete = 1
+
+repo.delete(id_to_delete)
+
+all_albums = repo.all
+all_albums.length # => 1
+all_albums.first.id # => '2'
+
+# update
+repo = AlbumRepository.new
+
+album = repo.find(1)
+
+album.title = 'New_name'
+album.release_year = '1111'
+album.artist_id = '2'
+
+repo.update(album)
+
+updated_album = repo.find(1)
+updated_album.title = 'New_name'
+updated_albumed_album.release_year = '1111'
+updated_album.artist_id = '2'
 ```
 
 Encode this example as a test.
