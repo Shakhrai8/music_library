@@ -22,4 +22,12 @@ RSpec.describe ArtistRepository do
     expect(artists.first.id).to eq('1') # => '1'
     expect(artists.first.name).to eq("Pixies" )# => 'Pixies'
   end
+
+  it "finds artist 1 with related albums" do
+    repository = ArtistRepository.new 
+    artist = repository.find_with_albums(1)
+
+    expect(artist.name).to eq('Pixies')
+    expect(artist.albums.length).to eq(2)
+  end
 end

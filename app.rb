@@ -14,7 +14,8 @@ class Application
     @io.puts "Welcome to the music library manager!\n\n"
     @io.puts "What would you like to do?"
     @io.puts " 1 - List all albums"
-    @io.puts " 2 - List all artists\n\n"
+    @io.puts " 2 - Find"
+    @io.puts " 3 - List all artists\n\n"
     @io.print "Enter your choice: "
 
     choice = @io.gets.chomp.to_i
@@ -26,12 +27,36 @@ class Application
       albums.each do |album|
         @io.puts " * #{album.id} - #{album.title} - #{album.release_year}"
       end
-    when 2
+    when 3
       @io.puts "\nHere is the list of artists:"
       artists = @artist_repository.all
       artists.each do |artist|
         @io.puts " * #{artist.id} - #{artist.name} - #{artist.genre}"
       end
+    when 2
+      @io.puts "\nTesting find_with method:"
+      artist = @artist_repository.find_with_albums(1)
+      artist.albums.each do |album|
+        puts "#{artist.id} - #{artist.name} - #{artist.genre} - #{album.title} - #{album.release_year}"
+      end    
+      
+      
+      # data structure for learning purposes:
+        #Artist
+        #├── id
+        #├── name
+        #├── genre
+        #└── albums
+            #├── Album 1
+            #│   ├── id
+            #│   ├── title
+            #│   └── release_year
+            #├── Album 2
+            #│   ├── id
+            #│   ├── title
+            #│   └── release_year
+            #└── ...
+
     else
       @io.puts "\nInvalid choice. Please try again."
     end
